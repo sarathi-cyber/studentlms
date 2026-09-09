@@ -15,7 +15,7 @@ export async function POST(request: Request)
  {
     const ip = getClientIp(request);
 
-const limit = rateLimit(
+const limit = await rateLimit(
   `login:${ip}`,
   {
     limit: 10,

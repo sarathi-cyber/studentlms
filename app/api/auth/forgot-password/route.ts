@@ -19,7 +19,7 @@ const RESET_TOKEN_DURATION_MS =
 export async function POST(request: Request) {
     const ip = getClientIp(request);
 
-const limit = rateLimit(
+const limit = await rateLimit(
   `forgot-password:${ip}`,
   {
     limit: 5,

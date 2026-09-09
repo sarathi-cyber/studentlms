@@ -1,54 +1,75 @@
-type RateLimitEntry = {
-  count: number;
-  resetAt: number;
-};
+import { sql } from "drizzle-orm";
 
-const store = new Map<string, RateLimitEntry>();
+import { db } from "@/lib/db";
 
 export type RateLimitOptions = {
   limit: number;
   windowMs: number;
 };
 
-export function rateLimit(
+export type RateLimitResult = {
+  success: boolean;
+  remaining: number;
+  resetAt: number;
+};
+
+export async function rateLimit(
   key: string,
   options: RateLimitOptions,
-) {
+): Promise<RateLimitResult> {
   const now = Date.now();
-  const existing = store.get(key);
+  const resetAt = now + options.windowMs;
 
-  if (!existing || existing.resetAt <= now) {
-    const entry = {
-      count: 1,
-      resetAt: now + options.windowMs,
-    };
+  const result = await db.execute(sql`
+    INSERT INTO rate_limit_entries (
+      key,
+      count,
+      reset_at,
+      created_at,
+      updated_at
+    )
+    VALUES (
+      ${key},
+      1,
+      to_timestamp(${resetAt} / 1000.0),
+      NOW(),
+      NOW()
+    )
+    ON CONFLICT (key)
+    DO UPDATE SET
+      count = CASE
+        WHEN rate_limit_entries.reset_at <= NOW()
+          THEN 1
+        ELSE rate_limit_entries.count + 1
+      END,
+      reset_at = CASE
+        WHEN rate_limit_entries.reset_at <= NOW()
+          THEN to_timestamp(${resetAt} / 1000.0)
+        ELSE rate_limit_entries.reset_at
+      END,
+      updated_at = NOW()
+    RETURNING
+      count,
+      EXTRACT(
+        EPOCH FROM reset_at
+      ) * 1000 AS reset_at_ms
+  `);
 
-    store.set(key, entry);
+  const row = result.rows[0] as {
+    count: number;
+    reset_at_ms: number;
+  };
 
-    return {
-      success: true,
-      remaining: options.limit - 1,
-      resetAt: entry.resetAt,
-    };
-  }
-
-  if (existing.count >= options.limit) {
-    return {
-      success: false,
-      remaining: 0,
-      resetAt: existing.resetAt,
-    };
-  }
-
-  existing.count += 1;
+  const count = Number(row.count);
+  const databaseResetAt = Number(row.reset_at_ms);
 
   return {
-    success: true,
+    success: count <= options.limit,
     remaining: Math.max(
       0,
-      options.limit - existing.count,
+      options.limit - count,
     ),
-    resetAt: existing.resetAt,
+    resetAt: databaseResetAt,
   };
 }
 
