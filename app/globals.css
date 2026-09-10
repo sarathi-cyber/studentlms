@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080808;
+  --background: #050505;
   --foreground: #f5f5f5;
   --muted: #a1a1aa;
+
   --gold: #d4af37;
   --gold-light: #f1d77a;
-  --surface: #111111;
-  --surface-light: #181818;
+  --gold-dark: #8f731d;
+
+  --surface: #0d0d0d;
+  --surface-light: #151515;
   --border: #292929;
 }
 
@@ -24,12 +27,22 @@
 
 html {
   background: var(--background);
-  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(212, 175, 55, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(212, 175, 55, 0.06),
+      transparent 30%
+    ),
+    var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -43,4 +56,223 @@ input {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* -------------------------------- */
+/* TECHVORA ANIMATIONS              */
+/* -------------------------------- */
+
+@keyframes gold-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes gold-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gold-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes border-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
+  }
+}
+
+/* -------------------------------- */
+/* REUSABLE TECHVORA CLASSES        */
+/* -------------------------------- */
+
+.techvora-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.techvora-page::before,
+.techvora-page::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  background: rgba(212, 175, 55, 0.08);
+  animation: gold-pulse 7s ease-in-out infinite;
+}
+
+.techvora-page::before {
+  width: 320px;
+  height: 320px;
+  top: -120px;
+  left: -100px;
+}
+
+.techvora-page::after {
+  width: 280px;
+  height: 280px;
+  right: -100px;
+  bottom: -100px;
+  animation-delay: 2s;
+}
+
+.techvora-content {
+  position: relative;
+  z-index: 1;
+  animation: page-enter 0.6s ease-out both;
+}
+
+.techvora-card {
+  border: 1px solid var(--border);
+  background: rgba(17, 17, 17, 0.88);
+  backdrop-filter: blur(16px);
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.techvora-card:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(212, 175, 55, 0.05);
+}
+
+.techvora-input {
+  border: 1px solid var(--border);
+  background: rgba(5, 5, 5, 0.9);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.techvora-input:focus {
+  border-color: var(--gold);
+  background: #080808;
+  box-shadow:
+    0 0 0 3px rgba(212, 175, 55, 0.08),
+    0 0 25px rgba(212, 175, 55, 0.06);
+}
+
+.techvora-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    var(--gold-dark),
+    var(--gold),
+    var(--gold-light),
+    var(--gold)
+  );
+  background-size: 200% auto;
+  color: #050505;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.techvora-button:hover {
+  animation: gold-shimmer 1.5s linear infinite;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 30px rgba(212, 175, 55, 0.18);
+}
+
+.techvora-button:active {
+  transform: translateY(0);
+}
+
+.techvora-gold-text {
+  background: linear-gradient(
+    110deg,
+    var(--gold-dark),
+    var(--gold-light),
+    var(--gold)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: gold-shimmer 5s linear infinite;
+}
+
+.techvora-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.35),
+    transparent
+  );
+}
+
+.techvora-float {
+  animation: gold-float 6s ease-in-out infinite;
+}
+
+.techvora-glow {
+  animation: border-glow 4s ease-in-out infinite;
+}
+
+/* -------------------------------- */
+/* ACCESSIBILITY                    */
+/* -------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
