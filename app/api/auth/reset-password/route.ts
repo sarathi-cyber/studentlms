@@ -10,8 +10,41 @@ import {
   users,
 } from "@/lib/db/schema";
 import { resetPasswordSchema } from "@/lib/validation/auth";
+import {
+  getClientIp,
+  rateLimit,
+} from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
+  const ip = getClientIp(request);
+
+  const limit = await rateLimit(
+    `reset-password:${ip}`,
+    {
+      limit: 10,
+      windowMs: 15 * 60 * 1000,
+    },
+  );
+
+  if (!limit.success) {
+    return NextResponse.json(
+      {
+        error:
+          "Too many password reset attempts. Please try again later.",
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(
+            Math.ceil(
+              (limit.resetAt - Date.now()) / 1000,
+            ),
+          ),
+        },
+      },
+    );
+  }
+
   try {
     const body = await request.json();
 

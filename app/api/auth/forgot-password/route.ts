@@ -12,39 +12,41 @@ import {
   getClientIp,
   rateLimit,
 } from "@/lib/security/rate-limit";
+import { sendPasswordResetEmail } from "@/lib/email";
 
 const RESET_TOKEN_DURATION_MS =
   60 * 60 * 1000; // 1 hour
 
 export async function POST(request: Request) {
-    const ip = getClientIp(request);
+  const ip = getClientIp(request);
 
-const limit = await rateLimit(
-  `forgot-password:${ip}`,
-  {
-    limit: 5,
-    windowMs: 15 * 60 * 1000,
-  },
-);
-
-if (!limit.success) {
-  return NextResponse.json(
+  const limit = await rateLimit(
+    `forgot-password:${ip}`,
     {
-      error:
-        "Too many password reset requests. Please try again later.",
-    },
-    {
-      status: 429,
-      headers: {
-        "Retry-After": String(
-          Math.ceil(
-            (limit.resetAt - Date.now()) / 1000,
-          ),
-        ),
-      },
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
     },
   );
-}
+
+  if (!limit.success) {
+    return NextResponse.json(
+      {
+        error:
+          "Too many password reset requests. Please try again later.",
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(
+            Math.ceil(
+              (limit.resetAt - Date.now()) / 1000,
+            ),
+          ),
+        },
+      },
+    );
+  }
+
   try {
     const body = await request.json();
 
@@ -95,10 +97,6 @@ if (!limit.success) {
     const resetToken = generateToken(32);
     const resetTokenHash = hashToken(resetToken);
 
-    if (process.env.NODE_ENV !== "production") {
-  console.log("[DEV] Password reset token:", resetToken);
-}
-
     const expiresAt = new Date(
       Date.now() + RESET_TOKEN_DURATION_MS,
     );
@@ -110,12 +108,29 @@ if (!limit.success) {
     });
 
     /*
-     * Email delivery will be implemented in the
-     * next authentication step.
+     * Build the reset URL on the server.
      *
-     * NEVER return resetToken in production.
+     * Development:
+     *   http://localhost:3000/reset-password?token=...
+     *
+     * Production:
+     *   Uses NEXT_PUBLIC_APP_URL.
      */
+    const appUrl =
+      process.env.NEXT_PUBLIC_APP_URL ??
+      "http://localhost:3000";
 
+    const resetUrl =
+      `${appUrl}/reset-password?token=${encodeURIComponent(resetToken)}`;
+
+    await sendPasswordResetEmail({
+      email: user.email,
+      resetUrl,
+    });
+
+    /*
+     * Never return the reset token to the browser.
+     */
     console.log(
       `Password reset requested for ${user.email}`,
     );
