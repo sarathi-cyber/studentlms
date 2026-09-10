@@ -1,10 +1,13 @@
 import {
+  check,
+  index,
   pgTable,
   text,
   timestamp,
   unique,
   uuid,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 import { users } from "./users";
 import { courses } from "./courses";
@@ -44,5 +47,18 @@ export const enrollments = pgTable(
     userCourseUnique: unique(
       "enrollments_user_course_unique",
     ).on(table.userId, table.courseId),
+
+    userIdIdx: index(
+      "enrollments_user_id_idx",
+    ).on(table.userId),
+
+    courseIdIdx: index(
+      "enrollments_course_id_idx",
+    ).on(table.courseId),
+
+    statusCheck: check(
+      "enrollments_status_check",
+      sql`${table.status} IN ('active', 'completed', 'cancelled')`,
+    ),
   }),
 );

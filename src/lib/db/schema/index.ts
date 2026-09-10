@@ -10,3 +10,4 @@ export * from "./course-modules";
 export * from "./lessons";
 export * from "./enrollments";
 export * from "./lesson-progress";
+export * from "./relations";
