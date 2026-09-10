@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
     <main className="techvora-page flex min-h-screen items-center justify-center px-6 py-10 text-white">
       <div className="techvora-content w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link href="/login" className="inline-block">
+          <Link href="/student/login" className="inline-block">
             <div className="techvora-gold-text text-3xl font-black tracking-[0.12em]">
               TECHVORA
             </div>
@@ -151,7 +151,7 @@ export default function ForgotPasswordPage() {
 
           <div className="techvora-divider mt-7 pt-6 text-center">
             <Link
-              href="/login"
+              href="/student/login"
               className="text-sm font-semibold text-[#d4af37] transition hover:text-[#f1d77a]"
             >
               ← Back to sign in

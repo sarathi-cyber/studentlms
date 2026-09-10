@@ -325,7 +325,7 @@ export default function RegisterPage() {
           <p className="text-center text-sm text-zinc-500">
             Already have an account?{" "}
             <Link
-              href="/login"
+              href="/student/login"
               className="font-semibold text-[#d4af37] transition hover:text-[#f1d77a]"
             >
               Sign in
@@ -344,7 +344,7 @@ export default function RegisterPage() {
 function Brand() {
   return (
     <div className="mb-8 text-center">
-      <Link href="/login" className="inline-block">
+      <Link href="/student/login" className="inline-block">
         <div className="techvora-gold-text text-3xl font-black tracking-[0.12em]">
           TECHVORA
         </div>

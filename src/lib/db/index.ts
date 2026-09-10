@@ -11,6 +11,18 @@ if (!databaseUrl) {
 
 const pool = new Pool({
   connectionString: databaseUrl,
+  ssl: {
+    rejectUnauthorized: true,
+  },
+  max: 5,
+  idleTimeoutMillis: 30_000,
+  connectionTimeoutMillis: 15_000,
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10_000,
+});
+
+pool.on("error", (error) => {
+  console.error("PostgreSQL pool error:", error);
 });
 
 export const db = drizzle(pool, {

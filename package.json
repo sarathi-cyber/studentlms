@@ -11,6 +11,7 @@
     "db:verify": "tsx src/lib/db/verify-schema.ts"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "argon2": "^0.45.1",
     "drizzle-orm": "^0.45.2",
     "next": "16.3.4",
