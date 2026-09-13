@@ -29,6 +29,27 @@
       "when": 1789023862858,
       "tag": "0003_wonderful_butterfly",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789149068788,
+      "tag": "0004_chemical_phalanx",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789150457550,
+      "tag": "0005_shocking_onslaught",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789277025068,
+      "tag": "0006_clever_exodus",
+      "breakpoints": true
     }
   ]
 }

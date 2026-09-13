@@ -1,4 +1,6 @@
 import {
+  boolean,
+  date,
   pgTable,
   text,
   timestamp,
@@ -23,9 +25,27 @@ export const profiles = pgTable("profiles", {
 
   phone: text("phone"),
 
-  institution: text("institution"),
+  dateOfBirth: date("date_of_birth"),
+
+  educationLevel: text("education_level"),
 
   classOrYear: text("class_or_year"),
+
+  institution: text("institution"),
+
+  schoolOrCollege: text("school_or_college"),
+
+  parentGuardianName: text("parent_guardian_name"),
+
+  parentGuardianContact: text("parent_guardian_contact"),
+
+  parentConsent: boolean("parent_consent")
+    .notNull()
+    .default(false),
+
+  profileCompleted: boolean("profile_completed")
+    .notNull()
+    .default(false),
 
   country: text("country"),
 

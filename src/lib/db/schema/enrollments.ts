@@ -4,7 +4,7 @@ import {
   pgTable,
   text,
   timestamp,
-  unique,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
@@ -31,7 +31,7 @@ export const enrollments = pgTable(
 
     status: text("status")
       .notNull()
-      .default("active"),
+      .default("pending"),
 
     enrolledAt: timestamp("enrolled_at", {
       withTimezone: true,
@@ -39,14 +39,40 @@ export const enrollments = pgTable(
       .notNull()
       .defaultNow(),
 
+    approvedAt: timestamp("approved_at", {
+      withTimezone: true,
+    }),
+
+    approvedBy: uuid("approved_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+
     completedAt: timestamp("completed_at", {
+      withTimezone: true,
+    }),
+
+    expiredAt: timestamp("expired_at", {
+      withTimezone: true,
+    }),
+
+    cancelledAt: timestamp("cancelled_at", {
+      withTimezone: true,
+    }),
+
+    terminationReason: text("termination_reason"),
+
+    reEnrollmentRequestedAt: timestamp("re_enrollment_requested_at", {
       withTimezone: true,
     }),
   },
   (table) => ({
-    userCourseUnique: unique(
-      "enrollments_user_course_unique",
-    ).on(table.userId, table.courseId),
+    activeEnrollmentUnique: uniqueIndex(
+      "enrollments_active_user_course_unique",
+    )
+      .on(table.userId, table.courseId)
+      .where(
+        sql`${table.status} IN ('pending', 'active')`,
+      ),
 
     userIdIdx: index(
       "enrollments_user_id_idx",
@@ -56,9 +82,17 @@ export const enrollments = pgTable(
       "enrollments_course_id_idx",
     ).on(table.courseId),
 
+    statusIdx: index(
+      "enrollments_status_idx",
+    ).on(table.status),
+
+    approvedByIdx: index(
+      "enrollments_approved_by_idx",
+    ).on(table.approvedBy),
+
     statusCheck: check(
       "enrollments_status_check",
-      sql`${table.status} IN ('active', 'completed', 'cancelled')`,
+      sql`${table.status} IN ('pending', 'active', 'completed', 'expired', 'cancelled')`,
     ),
   }),
 );

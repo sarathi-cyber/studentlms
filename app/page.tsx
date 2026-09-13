@@ -30,11 +30,9 @@ const courses = [
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#050505] text-white">
-
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 border-b border-[#d4af37]/10 bg-[#050505]/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-
           <Link href="/" className="group">
             <div className="text-xl font-bold tracking-[0.2em] text-[#d4af37]">
               TECHVORA
@@ -45,16 +43,24 @@ export default function HomePage() {
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
-            <a href="#courses" className="text-sm text-zinc-400 transition hover:text-[#d4af37]">
+            <a
+              href="#courses"
+              className="text-sm text-zinc-400 transition hover:text-[#d4af37]"
+            >
               Courses
             </a>
-            <a href="#about" className="text-sm text-zinc-400 transition hover:text-[#d4af37]">
+
+            <a
+              href="#about"
+              className="text-sm text-zinc-400 transition hover:text-[#d4af37]"
+            >
               About
             </a>
-            <a href="#leadership" className="text-sm text-zinc-400 transition hover:text-[#d4af37]">
-              Leadership
-            </a>
-            <a href="#instructor" className="text-sm text-zinc-400 transition hover:text-[#d4af37]">
+
+            <a
+              href="#instructor"
+              className="text-sm text-zinc-400 transition hover:text-[#d4af37]"
+            >
               Instructor
             </a>
           </nav>
@@ -82,7 +88,6 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.12),transparent_55%)]" />
 
         <div className="relative mx-auto max-w-7xl px-6 py-28 text-center sm:py-36">
-
           <div className="mb-6 text-sm font-semibold tracking-[0.45em] text-[#d4af37]">
             TECHVORA ACADEMY
           </div>
@@ -97,8 +102,8 @@ export default function HomePage() {
 
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-zinc-400">
             A technology-focused learning platform designed to help students
-            develop programming skills through structured education,
-            practical learning, and real-world projects.
+            develop programming skills through structured education, practical
+            learning, and real-world projects.
           </p>
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
@@ -122,7 +127,6 @@ export default function HomePage() {
       {/* COURSES */}
       <section id="courses" className="border-t border-zinc-900">
         <div className="mx-auto max-w-7xl px-6 py-24">
-
           <div className="mb-14 text-center">
             <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
               OUR COURSES
@@ -174,7 +178,6 @@ export default function HomePage() {
       {/* ABOUT */}
       <section id="about" className="border-t border-zinc-900 bg-[#080808]">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-2 lg:items-center">
-
           <div>
             <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
               ABOUT THE ACADEMY
@@ -185,7 +188,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="space-y-5 text-zinc-400 leading-8">
+          <div className="space-y-5 leading-8 text-zinc-400">
             <p>
               Techvora Academy is an educational initiative focused on
               developing programming and technology skills among students.
@@ -205,91 +208,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LEADERSHIP */}
-      <section id="leadership" className="border-t border-zinc-900">
-        <div className="mx-auto max-w-7xl px-6 py-24">
-
-          <div className="mb-14 text-center">
-            <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
-              LEADERSHIP
-            </div>
-
-            <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-              The People Behind Techvora
-            </h2>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-
-            {/* FOUNDER */}
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 text-2xl font-bold text-[#d4af37]">
-                F
-              </div>
-
-              <div className="mt-7 text-xs font-semibold tracking-[0.25em] text-[#d4af37]">
-                FOUNDER
-              </div>
-
-              <h3 className="mt-2 text-3xl font-bold">
-                Founder Name
-              </h3>
-
-              <p className="mt-5 leading-7 text-zinc-400">
-                Founder biography will be added here with the official
-                professional background, vision, achievements, and the
-                motivation behind Techvora Academy.
-              </p>
-            </article>
-
-            {/* CEO */}
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 text-2xl font-bold text-[#d4af37]">
-                C
-              </div>
-
-              <div className="mt-7 text-xs font-semibold tracking-[0.25em] text-[#d4af37]">
-                CHIEF EXECUTIVE OFFICER
-              </div>
-
-              <h3 className="mt-2 text-3xl font-bold">
-                CEO Name
-              </h3>
-
-              <p className="mt-5 leading-7 text-zinc-400">
-                CEO biography will be added here with the official
-                professional background, responsibilities, vision, and
-                contribution to Techvora Academy.
-              </p>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
       {/* INSTRUCTOR */}
-      <section id="instructor" className="border-t border-zinc-900 bg-[#080808]">
+      <section
+        id="instructor"
+        className="border-t border-zinc-900 bg-[#080808]"
+      >
         <div className="mx-auto max-w-7xl px-6 py-24">
-
           <div className="mx-auto max-w-3xl text-center">
             <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
-              INSTRUCTOR
+              KNOW YOUR INSTRUCTOR
             </div>
 
             <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-              Learn From Practitioners
+              Learn From Your Instructor
             </h2>
 
             <p className="mt-6 leading-8 text-zinc-400">
-              Meet the instructor responsible for delivering practical,
-              structured, and engaging technology education through Techvora
-              Academy.
+              Get to know the instructor behind your learning experience at
+              Techvora Academy.
             </p>
           </div>
 
           <div className="mx-auto mt-14 max-w-3xl rounded-2xl border border-zinc-800 bg-zinc-950 p-8 text-center">
             <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 text-3xl font-bold text-[#d4af37]">
-              I
+              S
             </div>
 
             <div className="mt-7 text-xs font-semibold tracking-[0.25em] text-[#d4af37]">
@@ -297,13 +239,15 @@ export default function HomePage() {
             </div>
 
             <h3 className="mt-2 text-3xl font-bold">
-              Instructor Name
+              Sarathi M
             </h3>
 
+            <p className="mt-3 text-lg font-medium text-[#d4af37]">
+              Freelancer
+            </p>
+
             <p className="mx-auto mt-5 max-w-2xl leading-7 text-zinc-400">
-              Instructor profile and professional biography will be added
-              here with the official teaching experience, technical
-              expertise, achievements, and areas of specialization.
+              Currently pursuing M.Tech CSE at Bharathidasan University.
             </p>
           </div>
         </div>
@@ -312,7 +256,6 @@ export default function HomePage() {
       {/* WHY TECHVORA */}
       <section className="border-t border-zinc-900">
         <div className="mx-auto max-w-7xl px-6 py-24">
-
           <div className="text-center">
             <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
               WHY TECHVORA
@@ -325,10 +268,26 @@ export default function HomePage() {
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["01", "Structured Learning", "Learn through carefully organized courses and progressive lessons."],
-              ["02", "Practical Coding", "Apply concepts through exercises, challenges, and projects."],
-              ["03", "Student Progress", "Track your learning journey through the LMS."],
-              ["04", "Certification", "Complete eligible courses and earn certificates."],
+              [
+                "01",
+                "Structured Learning",
+                "Learn through carefully organized courses and progressive lessons.",
+              ],
+              [
+                "02",
+                "Practical Coding",
+                "Apply concepts through exercises, challenges, and projects.",
+              ],
+              [
+                "03",
+                "Student Progress",
+                "Track your learning journey through the LMS.",
+              ],
+              [
+                "04",
+                "Certification",
+                "Complete eligible courses and earn certificates.",
+              ],
             ].map(([number, title, description]) => (
               <div
                 key={number}
@@ -354,7 +313,6 @@ export default function HomePage() {
       {/* CTA */}
       <section className="border-t border-[#d4af37]/20 bg-[#d4af37]/5">
         <div className="mx-auto max-w-4xl px-6 py-24 text-center">
-
           <div className="text-sm font-semibold tracking-[0.3em] text-[#d4af37]">
             START YOUR JOURNEY
           </div>
@@ -389,11 +347,11 @@ export default function HomePage() {
       {/* FOOTER */}
       <footer className="border-t border-zinc-900">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-10 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-
           <div>
             <div className="font-bold tracking-[0.2em] text-[#d4af37]">
               TECHVORA
             </div>
+
             <div className="mt-1 text-xs">
               Technology • Education • Innovation
             </div>
@@ -401,14 +359,13 @@ export default function HomePage() {
 
           <div className="text-left sm:text-right">
             <div>© {new Date().getFullYear()} Techvora Academy</div>
+
             <div className="mt-1">
               techvorasupport@gmail.com
             </div>
           </div>
-
         </div>
       </footer>
-
     </main>
   );
 }
