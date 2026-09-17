@@ -64,6 +64,13 @@
       "when": 1789389551136,
       "tag": "0008_colossal_alex_wilder",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1789663189485,
+      "tag": "0009_faithful_shocker",
+      "breakpoints": true
     }
   ]
 }

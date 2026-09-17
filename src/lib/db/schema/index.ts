@@ -20,3 +20,5 @@ export * from "./assessment-answers";
 
 export * from "./assignments";
 export * from "./assignment-submissions";
+
+export * from "./attendance-records";

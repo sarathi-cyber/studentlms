@@ -8,6 +8,7 @@ const navItems = [
   { label: "Dashboard", href: "/student/dashboard", icon: "⌂" },
   { label: "Courses", href: "/student/courses", icon: "▣" },
   { label: "My Enrollments", href: "/student/enrollments", icon: "✓" },
+  { label: "My Attendance", href: "/student/attendance", icon: "◷" },
   { label: "Assignments", href: "/student/assignments", icon: "▤" },
   { label: "My Profile", href: "/student/profile", icon: "◉" },
 ];
