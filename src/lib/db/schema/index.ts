@@ -11,3 +11,12 @@ export * from "./lessons";
 export * from "./enrollments";
 export * from "./lesson-progress";
 export * from "./relations";
+
+export * from "./assessments";
+export * from "./assessment-questions";
+export * from "./assessment-options";
+export * from "./assessment-attempts";
+export * from "./assessment-answers";
+
+export * from "./assignments";
+export * from "./assignment-submissions";

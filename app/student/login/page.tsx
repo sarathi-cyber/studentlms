@@ -81,7 +81,7 @@ export default function StudentLoginPage() {
         return;
       }
 
-      router.replace("/dashboard");
+      router.replace("/student/dashboard");
       router.refresh();
     } catch {
       setError("Unable to connect to the server.");

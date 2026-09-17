@@ -1,6 +1,7 @@
 import {
   boolean,
   check,
+  index,
   integer,
   pgTable,
   text,
@@ -9,32 +10,32 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
-export const courses = pgTable(
-  "courses",
+import { courses } from "./courses";
+
+export const assessments = pgTable(
+  "assessments",
   {
     id: uuid("id").defaultRandom().primaryKey(),
 
-    title: text("title").notNull(),
+    courseId: uuid("course_id")
+      .notNull()
+      .references(() => courses.id, {
+        onDelete: "cascade",
+      }),
 
-    slug: text("slug").notNull().unique(),
+    title: text("title").notNull(),
 
     description: text("description"),
 
-    thumbnailUrl: text("thumbnail_url"),
-
-    level: text("level").notNull().default("beginner"),
+    instructions: text("instructions"),
 
     durationMinutes: integer("duration_minutes")
       .notNull()
       .default(0),
 
-    startAt: timestamp("start_at", {
-      withTimezone: true,
-    }),
-
-    endAt: timestamp("end_at", {
-      withTimezone: true,
-    }),
+    passPercentage: integer("pass_percentage")
+      .notNull()
+      .default(50),
 
     isPublished: boolean("is_published")
       .notNull()
@@ -53,19 +54,18 @@ export const courses = pgTable(
       .defaultNow(),
   },
   (table) => ({
-    levelCheck: check(
-      "courses_level_check",
-      sql`${table.level} IN ('beginner', 'intermediate', 'advanced')`,
-    ),
+    courseIdIdx: index(
+      "assessments_course_id_idx",
+    ).on(table.courseId),
 
     durationCheck: check(
-      "courses_duration_check",
+      "assessments_duration_check",
       sql`${table.durationMinutes} >= 0`,
     ),
 
-    dateRangeCheck: check(
-      "courses_date_range_check",
-      sql`${table.startAt} IS NULL OR ${table.endAt} IS NULL OR ${table.endAt} > ${table.startAt}`,
+    passPercentageCheck: check(
+      "assessments_pass_percentage_check",
+      sql`${table.passPercentage} >= 0 AND ${table.passPercentage} <= 100`,
     ),
   }),
 );

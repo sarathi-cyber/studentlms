@@ -36,6 +36,11 @@ const navigation = [
     icon: "✓",
   },
   {
+    label: "Assignments",
+    href: "/admin/assignments",
+    icon: "▤",
+  },
+  {
     label: "Certificates",
     href: "/admin/certificates",
     icon: "◇",

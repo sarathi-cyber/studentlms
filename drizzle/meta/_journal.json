@@ -50,6 +50,20 @@
       "when": 1789277025068,
       "tag": "0006_clever_exodus",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789388151849,
+      "tag": "0007_friendly_bullseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1789389551136,
+      "tag": "0008_colossal_alex_wilder",
+      "breakpoints": true
     }
   ]
 }

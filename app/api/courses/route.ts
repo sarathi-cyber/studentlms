@@ -17,6 +17,8 @@ export async function GET() {
         thumbnailUrl: courses.thumbnailUrl,
         level: courses.level,
         durationMinutes: courses.durationMinutes,
+        startAt: courses.startAt,
+        endAt: courses.endAt,
         isPublished: courses.isPublished,
         createdAt: courses.createdAt,
         updatedAt: courses.updatedAt,
@@ -93,6 +95,10 @@ export async function POST(request: Request) {
         level: parsed.data.level,
         durationMinutes:
           parsed.data.durationMinutes,
+        startAt:
+          parsed.data.startAt ?? null,
+        endAt:
+          parsed.data.endAt ?? null,
         isPublished: parsed.data.isPublished,
       })
       .returning();

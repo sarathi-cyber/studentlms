@@ -49,6 +49,10 @@ export const createCourseSchema = z.object({
     .max(100000)
     .default(0),
 
+  startAt: z.coerce.date().nullable().optional(),
+
+  endAt: z.coerce.date().nullable().optional(),
+
   isPublished: z.boolean().default(false),
 });
 
@@ -89,6 +93,10 @@ export const updateCourseSchema = z.object({
     .min(0)
     .max(100000)
     .optional(),
+
+  startAt: z.coerce.date().nullable().optional(),
+
+  endAt: z.coerce.date().nullable().optional(),
 
   isPublished: z.boolean().optional(),
 });
