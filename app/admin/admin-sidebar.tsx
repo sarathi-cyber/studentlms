@@ -39,6 +39,11 @@ const navigation = [
     label: "Attendance",
     href: "/admin/attendance",
     icon: "◷",
+  }, 
+  {
+    label: "Support Tickets",
+    href: "/admin/support",
+    icon: "?",
   },
   {
     label: "Certificates",
@@ -150,6 +155,21 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+          {user.role === "super_admin" && (
+            <Link
+              href="/admin/users"
+              onClick={() => setMobileOpen(false)}
+              className={`mb-2 flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                pathname === "/admin/users" || pathname.startsWith("/admin/users/")
+                  ? "bg-[#d4af37]/10 text-[#d4af37]"
+                  : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+              }`}
+            >
+              <span className="w-5 text-center text-base">♙</span>
+              {!collapsed && <span>Admin Management</span>}
+            </Link>
+          )}
+
           {navigation.map((item) => {
             const active =
               item.href === "/admin"
