@@ -37,11 +37,32 @@ export async function requireAdmin(): Promise<AuthorizationResult> {
     return result;
   }
 
-  if (result.user.role !== "admin") {
+  if (
+    result.user.role !== "admin" &&
+    result.user.role !== "super_admin"
+  ) {
     return {
       authorized: false,
       status: 403,
       error: "Forbidden.",
+    };
+  }
+
+  return result;
+}
+
+export async function requireSuperAdmin(): Promise<AuthorizationResult> {
+  const result = await requireAuthenticatedUser();
+
+  if (!result.authorized) {
+    return result;
+  }
+
+  if (result.user.role !== "super_admin") {
+    return {
+      authorized: false,
+      status: 403,
+      error: "Super Admin access required.",
     };
   }
 

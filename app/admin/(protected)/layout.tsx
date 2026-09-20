@@ -14,7 +14,11 @@ export default async function AdminProtectedLayout({
     redirect("/admin/login");
   }
 
-  if (user.role !== "admin") {
+  if (
+    user.role !== "super_admin" &&
+    user.role !== "admin" &&
+    user.role !== "sub_admin"
+  ) {
     redirect("/dashboard");
   }
 

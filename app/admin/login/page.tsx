@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
         return;
       }
 
-      if (data.user?.role !== "admin") {
+      if (!["super_admin", "admin", "sub_admin"].includes(data.user?.role)) {
         await fetch("/api/auth/logout", {
           method: "POST",
           credentials: "include",

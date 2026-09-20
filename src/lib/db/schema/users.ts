@@ -9,7 +9,9 @@ import {
 export const userRoleEnum = pgEnum("user_role", [
   "student",
   "instructor",
+  "sub_admin",
   "admin",
+  "super_admin",
 ]);
 
 export const userStatusEnum = pgEnum("user_status", [
