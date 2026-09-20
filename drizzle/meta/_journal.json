@@ -71,6 +71,27 @@
       "when": 1789663189485,
       "tag": "0009_faithful_shocker",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1789891377829,
+      "tag": "0010_classy_spitfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1789899124007,
+      "tag": "0011_long_squadron_supreme",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1789901486484,
+      "tag": "0012_nifty_silver_sable",
+      "breakpoints": true
     }
   ]
 }

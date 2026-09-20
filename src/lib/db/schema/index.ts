@@ -22,3 +22,7 @@ export * from "./assignments";
 export * from "./assignment-submissions";
 
 export * from "./attendance-records";
+
+export * from "./support-tickets";
+
+export * from "./admin-permissions";
